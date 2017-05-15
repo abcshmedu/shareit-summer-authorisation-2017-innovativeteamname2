@@ -31,6 +31,24 @@ public class User {
      * Constructor for Role.
      * @param name Name of User
      * @param password Password of User
+     * @param passwordRepeat Repeation of Password
+     */
+    public User(String name, String password, String passwordRepeat)  {
+        if (password.equals(passwordRepeat))  {
+            this.name = name;
+            this.password = password;
+            this.role = Role.USER;
+        }  else  {
+            this.name = null;
+            this.password = null;
+            this.role = null;
+        }
+    }
+    
+    /**
+     * Constructor for Role.
+     * @param name Name of User
+     * @param password Password of User
      * @param role Role of User
      */
     public User(String name, String password, Role role)  {

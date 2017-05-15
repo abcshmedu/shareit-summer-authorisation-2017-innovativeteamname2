@@ -23,6 +23,14 @@ public class TokenImpl implements IToken  {
      * Magic Constant.
      */
     private static final long UNIXDIVISOR = 1000L;
+    
+    /**
+     * Default Constructor.
+     */
+    public TokenImpl()  {
+        User root = new User("root", "rootpasswort", Role.ROOT);
+        addUser(root);
+    }
 
     @Override
     public MediaServiceResult generateToken(User usr)  {

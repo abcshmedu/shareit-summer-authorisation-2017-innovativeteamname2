@@ -22,7 +22,6 @@ import edu.hm.management.bib.MediaServiceResult;
  * @author Daniel Gabl
  *
  */
-@Path("/users")
 public class TokenResource {
     
     /**
@@ -51,7 +50,7 @@ public class TokenResource {
      * @return JSON response with status code and created json object.
      */
     @POST
-    @Path("/")
+    @Path("/users")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response createUser(User user)  {
@@ -70,7 +69,7 @@ public class TokenResource {
      * @return JSON response with status code and created json object.
      */
     @POST
-    @Path("/login")
+    @Path("/users/login")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response createToken(User user)  {
@@ -88,9 +87,10 @@ public class TokenResource {
      * @return JSON response.
      */
     @GET
-    @Path("/")
+    @Path("/users")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getUsers()  {
+        System.out.println("got here");
         MediaServiceResult result = MediaServiceResult.OKAY;
         return Response.status(result.getCode()).entity(objToJSON(token.getUsers())).build();
     }
@@ -101,7 +101,7 @@ public class TokenResource {
      * @return JSON response.
      */
     @PUT
-    @Path("/")
+    @Path("/users")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response updateUser(User user)  {
@@ -120,7 +120,7 @@ public class TokenResource {
      * @return JSON response.
      */
     @GET
-    @Path("/{name}")
+    @Path("/users/{name}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response findUser(@PathParam("name") String name)  {
         MediaServiceResult result = MediaServiceResult.OKAY;

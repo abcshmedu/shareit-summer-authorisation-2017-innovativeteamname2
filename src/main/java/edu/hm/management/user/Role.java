@@ -27,7 +27,7 @@ public enum Role {
     * Returns Level of Permission.
     * @return level
     */
-    int getRoleLevel()  {
+    public int getRoleLevel()  {
         return level;
     }
     
@@ -35,7 +35,7 @@ public enum Role {
      * Returns Name of Permission.
      * @return name
      */
-    String getRoleName()  {
+    public String getRoleName()  {
         return name;
     }
 }

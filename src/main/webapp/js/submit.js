@@ -207,6 +207,87 @@ var findDisc = function() {
 	});// no error handling
 }
 
+
+
+
+
+/**
+ * This function is used for creating a new user.
+ */
+var registerUser = function() {
+	var json = JSON.stringify({
+		name: $("input[name=name]").val(),
+		pass: $("input[name=pass]").val(),
+		pass_repeat: $("input[name=pass_repeat]").val()
+	});
+	var errorText = $("#errormessage");
+    $.ajax({
+        url: '/shareit/users/',
+        type:'POST',
+        contentType: 'application/json; charset=UTF-8',
+        data: json
+        })
+    .done(() => {
+		$("input[name=name]").val("");
+		$("input[name=pass]").val("");
+		$("input[name=pass_repeat]").val("");
+		    	
+		errorText.addClass("visible");
+    	errorText.text("User was added to the System.");
+    	errorText.removeClass("hidden");
+    })
+    .fail((error) => {
+    	errorText.addClass("visible");
+    	errorText.text(error.responseJSON.detail);
+    	errorText.removeClass("hidden");
+    });
+}
+
+/**
+ * This function is used for creating a new user.
+ */
+var loginUser = function() {
+	var json = JSON.stringify({
+		name: $("input[name=name]").val(),
+		pass: $("input[name=pass]").val()
+	});
+	var errorText = $("#errormessage");
+    $.ajax({
+        url: '/shareit/users/login',
+        type:'POST',
+        contentType: 'application/json; charset=UTF-8',
+        data: json
+        })
+    .done(() => {
+		$("input[name=name]").val("");
+		$("input[name=pass]").val("");
+		    	
+		errorText.addClass("visible");
+    	errorText.text("User was loggen into the System.");
+    	errorText.removeClass("hidden");
+    })
+    .fail((error) => {
+    	errorText.addClass("visible");
+    	errorText.text(error.responseJSON.detail);
+    	errorText.removeClass("hidden");
+    });
+}
+
+/**
+ * Creates a list of all books using a Mustache-template.
+ */
+var listUsers = function() {
+	$.ajax({
+        url: '/shareit/users',
+        type:'GET'
+	})
+	.done((data) => {
+		var template = "<h2>ShareIt &mdash; List Users</h2><table class='u-full-width'><tbody><tr><th>Name</th><th>Password</th><th>Role</th></tr>{{#data}}<tr><td>{{name}}</td><td>{{password}}</td><td>{{role}}</td></tr>{{/data}}</tbody></table>";
+		Mustache.parse(template);
+		var output = Mustache.render(template, {data: data});
+		$("#content").html(output);
+	});// no error handling
+}
 /**
  * Call backer for "navigational buttons" in left column. Used to set content in main part.
  */
