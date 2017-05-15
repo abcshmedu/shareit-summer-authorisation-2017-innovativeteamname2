@@ -3,4 +3,4 @@
 			   <tr><td><label for="isbn">ISBN:</label></td> <td><input type="text" name="isbn"></td></tr>
 	       </tbody></table>
 		  <div><span id="errormessage" class="hidden error">ERROR</span></div>
-		  <input type="button" class="button-primary" id="registerButton" onclick="findBook()" value="Find Book"/>
+		  <input type="submit" class="button-primary" id="registerButton" onclick="findBook()" value="Find Book"/>

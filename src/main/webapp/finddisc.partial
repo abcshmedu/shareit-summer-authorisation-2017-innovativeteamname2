@@ -3,4 +3,4 @@
 			   <tr><td><label for="barcode">Barcode:</label></td> <td><input type="text" name="barcode"></td></tr>
 	       </tbody></table>
 		  <div><span id="errormessage" class="hidden error">ERROR</span></div>
-		  <input type="button" class="button-primary" id="registerButton" onclick="findDisc()" value="Find Disc"/>
+		  <input type="submit" class="button-primary" id="registerButton" onclick="findDisc()" value="Find Disc"/>
