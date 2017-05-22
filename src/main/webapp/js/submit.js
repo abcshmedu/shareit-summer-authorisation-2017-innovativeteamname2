@@ -16,7 +16,7 @@ var submitNewBook = function() {
 	});
 	var errorText = $("#errormessage");
     $.ajax({
-        url: '/shareit/media/books/',
+        url: '/shareit/media/books/?token=rootToken',
         type:'POST',
         contentType: 'application/json; charset=UTF-8',
         data: json
@@ -49,7 +49,7 @@ var submitNewDisc = function() {
 	});
 	var errorText = $("#errormessage");
     $.ajax({
-        url: '/shareit/media/discs/',
+        url: '/shareit/media/discs/?token=rootToken',
         type:'POST',
         contentType: 'application/json; charset=UTF-8',
         data: json
@@ -76,7 +76,7 @@ var submitNewDisc = function() {
  */
 var listBooks = function() {
 	$.ajax({
-        url: '/shareit/media/books',
+        url: '/shareit/media/books/?token=rootToken',
         type:'GET'
 	})
 	.done((data) => {
@@ -92,7 +92,7 @@ var listBooks = function() {
  */
 var listDiscs = function() {
 	$.ajax({
-        url: '/shareit/media/discs',
+        url: '/shareit/media/discs/?token=rootToken',
         type:'GET'
 	})
 	.done((data) => {
@@ -114,7 +114,7 @@ var updateBook = function() {
 	});
 	var errorText = $("#errormessage");
     $.ajax({
-        url: '/shareit/media/books/',
+        url: '/shareit/media/books/?token=rootToken',
         type:'PUT',
         contentType: 'application/json; charset=UTF-8',
         data: json
@@ -147,7 +147,7 @@ var updateDisc = function() {
 	});
 	var errorText = $("#errormessage");
 	$.ajax({
-        url: '/shareit/media/discs/',
+        url: '/shareit/media/discs/?token=rootToken',
 	    type:'PUT',
 	    contentType: 'application/json; charset=UTF-8',
         data: json
@@ -176,7 +176,7 @@ var findBook = function() {
 	var isbn = $("input[name=isbn]").val();
 	var errorText = $("#errormessage");
     $.ajax({
-        url: '/shareit/media/books/'+isbn,
+        url: '/shareit/media/books/'+isbn+'/?token=rootToken',
         type:'GET'
         })
 	.done((data) => {
@@ -195,7 +195,7 @@ var findDisc = function() {
 	var barcode = $("input[name=barcode]").val();
 	var errorText = $("#errormessage");
     $.ajax({
-        url: '/shareit/media/discs/'+barcode,
+        url: '/shareit/media/discs/'+barcode+'/?token=rootToken',
         type:'GET'
         })
 	.done((data) => {
@@ -217,8 +217,7 @@ var findDisc = function() {
 var registerUser = function() {
 	var json = JSON.stringify({
 		name: $("input[name=name]").val(),
-		pass: $("input[name=pass]").val(),
-		pass_repeat: $("input[name=pass_repeat]").val()
+		pass: $("input[name=pass]").val()
 	});
 	var errorText = $("#errormessage");
     $.ajax({
@@ -230,7 +229,6 @@ var registerUser = function() {
     .done(() => {
 		$("input[name=name]").val("");
 		$("input[name=pass]").val("");
-		$("input[name=pass_repeat]").val("");
 		    	
 		errorText.addClass("visible");
     	errorText.text("User was added to the System.");
@@ -263,7 +261,7 @@ var loginUser = function() {
 		$("input[name=pass]").val("");
 		    	
 		errorText.addClass("visible");
-    	errorText.text("User was loggen into the System.");
+    	errorText.text("User was logged into the System.");
     	errorText.removeClass("hidden");
     })
     .fail((error) => {
@@ -274,7 +272,7 @@ var loginUser = function() {
 }
 
 /**
- * Creates a list of all books using a Mustache-template.
+ * Creates a list of all Users using a Mustache-template.
  */
 var listUsers = function() {
 	$.ajax({
@@ -282,12 +280,34 @@ var listUsers = function() {
         type:'GET'
 	})
 	.done((data) => {
-		var template = "<h2>ShareIt &mdash; List Users</h2><table class='u-full-width'><tbody><tr><th>Name</th><th>Password</th><th>Role</th></tr>{{#data}}<tr><td>{{name}}</td><td>{{password}}</td><td>{{role}}</td></tr>{{/data}}</tbody></table>";
+		var template = "<h2>ShareIt &mdash; List Users</h2><table class='u-full-width'><tbody><tr><th>Name</th><th>Password</th><th>Role</th></tr>{{#data}}<tr><td>{{name}}</td><td>{{pass}}</td><td>{{role}}</td></tr>{{/data}}</tbody></table>";
 		Mustache.parse(template);
 		var output = Mustache.render(template, {data: data});
 		$("#content").html(output);
 	});// no error handling
 }
+
+/**
+ * Finds a User.
+ */
+var findUser = function() {
+	var user = $("input[name=name]").val();
+	var errorText = $("#errormessage");
+    $.ajax({
+        url: '/shareit/users/'+user,
+        type:'GET'
+        })
+	.done((data) => {
+		$("input[name=name]").val("")
+		var template = "<h2>ShareIt &mdash; List User</h2><table class='u-full-width'><tbody><tr><th>Name</th><th>Password</th><th>Role</th></tr>{{#data}}<tr><td>{{name}}</td><td>{{pass}}</td><td>{{role}}</td></tr>{{/data}}</tbody></table>";
+		Mustache.parse(template);
+		var output = Mustache.render(template, {data: data});
+		$("#content").html(output);
+	});// no error handling
+}
+
+
+
 /**
  * Call backer for "navigational buttons" in left column. Used to set content in main part.
  */

@@ -22,25 +22,26 @@ import edu.hm.management.bib.MediaServiceResult;
  * @author Daniel Gabl
  *
  */
-public class TokenResource {
+@Path("")
+public class AuthenticationResource {
     
     /**
      * Token Interface.
      */
-    private final IToken token;
+    private final IAuthentication token;
     
     /**
      * Default Constructor. Creating a new token service.
      */
-    public TokenResource() {
-        token = new TokenImpl();
+    public AuthenticationResource() {
+        token = new AuthenticationImpl();
     }
 
     /**
      * Extended Constructor. Saving a given token resource.
      * @param token Token to set for this token
      */
-    public TokenResource(IToken token) {
+    public AuthenticationResource(IAuthentication token) {
         this.token = token;
     }
     
@@ -90,7 +91,6 @@ public class TokenResource {
     @Path("/users")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getUsers()  {
-        System.out.println("got here");
         MediaServiceResult result = MediaServiceResult.OKAY;
         return Response.status(result.getCode()).entity(objToJSON(token.getUsers())).build();
     }

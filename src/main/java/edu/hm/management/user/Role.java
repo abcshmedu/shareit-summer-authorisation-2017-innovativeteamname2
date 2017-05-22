@@ -38,4 +38,9 @@ public enum Role {
     public String getRoleName()  {
         return name;
     }
+    
+    @Override
+    public String toString()  {
+        return "Role: " + name + "; Level: " + level;
+    }
 }

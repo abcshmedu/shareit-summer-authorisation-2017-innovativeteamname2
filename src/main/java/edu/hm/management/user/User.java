@@ -7,15 +7,26 @@ package edu.hm.management.user;
  */
 public class User {
     
+    /**
+     * Name of the User.
+     */
     private final String name;
-    private final String password;
+    
+    /**
+     * Password of the User.
+     */
+    private final String pass;
+    
+    /**
+     * Role of the User.
+     */
     private final Role role;
     
     /**
      * Default Constructor for Jackson.
      */
     public User()  {
-        this("John Doe", "123456", Role.USER);
+        this("John Doe", "123456");
     }
     
     /**
@@ -31,29 +42,11 @@ public class User {
      * Constructor for Role.
      * @param name Name of User
      * @param password Password of User
-     * @param passwordRepeat Repeation of Password
-     */
-    public User(String name, String password, String passwordRepeat)  {
-        if (password.equals(passwordRepeat))  {
-            this.name = name;
-            this.password = password;
-            this.role = Role.USER;
-        }  else  {
-            this.name = null;
-            this.password = null;
-            this.role = null;
-        }
-    }
-    
-    /**
-     * Constructor for Role.
-     * @param name Name of User
-     * @param password Password of User
      * @param role Role of User
      */
     public User(String name, String password, Role role)  {
         this.name = name;
-        this.password = password;
+        this.pass = password;
         this.role = role;
     }
     
@@ -69,8 +62,8 @@ public class User {
      * Returns Password of User.
      * @return user password
      */
-    public String getPassword()  {
-        return password;
+    public String getPass()  {
+        return pass;
     }
     
     /**
@@ -97,7 +90,7 @@ public class User {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((name == null) ? 0 : name.hashCode());
-        result = prime * result + ((password == null) ? 0 : password.hashCode());
+        result = prime * result + ((pass == null) ? 0 : pass.hashCode());
         result = prime * result + ((role == null) ? 0 : role.hashCode());
         return result;
     }
@@ -121,17 +114,19 @@ public class User {
         } else if (!name.equals(other.name))  {
             return false;
         }
-        if (password == null) {
-            if (other.password != null)  {
+        if (pass == null) {
+            if (other.pass != null)  {
                 return false;
             }
-        } else if (!password.equals(other.password))  {
-            return false;
-        }
-        if (role != other.role)  {
+        } else if (!pass.equals(other.pass))  {
             return false;
         }
         return true;
     }
     
+    @Override
+    public String toString()  {
+        return "User-Name: " + name + "; Password: " + pass + "; Role: " + role;
+        
+    }
 }

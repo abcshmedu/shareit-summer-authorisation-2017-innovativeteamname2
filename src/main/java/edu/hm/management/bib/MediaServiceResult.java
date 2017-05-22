@@ -17,7 +17,9 @@ public enum MediaServiceResult {
     DUPLICATEOBJ(Response.Status.BAD_REQUEST.getStatusCode(), "Object already existing"),
     DUPLICATEISBN(Response.Status.BAD_REQUEST.getStatusCode(), "ISBN already exists"),
     ISBNBROKEN(Response.Status.BAD_REQUEST.getStatusCode(), "ISBN is not valid"),
-    ISBNNOTFOUND(Response.Status.BAD_REQUEST.getStatusCode(), "ISBN was not found");
+    ISBNNOTFOUND(Response.Status.BAD_REQUEST.getStatusCode(), "ISBN was not found"),
+    UNKNOWNUSER(Response.Status.NOT_FOUND.getStatusCode(), "User was not found in the Libary"),
+    TOKENNOTVALID(Response.Status.FORBIDDEN.getStatusCode(), "Token is not Valid");
     
     private final int errorCode;
     private final String errorNote;

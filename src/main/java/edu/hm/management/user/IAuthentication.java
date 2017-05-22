@@ -1,5 +1,7 @@
 package edu.hm.management.user;
 
+import java.util.Map;
+
 import edu.hm.management.bib.MediaServiceResult;
 
 /**
@@ -7,7 +9,7 @@ import edu.hm.management.bib.MediaServiceResult;
  * @author Daniel Gabl
  *
  */
-public interface IToken {
+public interface IAuthentication {
     /**
      * Adds a User to the Sub-System.
      * @param usr User to add
@@ -48,6 +50,12 @@ public interface IToken {
      * @return a user
      */
     User findUser(String name);
+    
+    /**
+     * Returns the List of Tokens and their User.
+     * @return List of Tokens and their User
+     */
+    Map<User, String> getListOfToken();
     
 
 }

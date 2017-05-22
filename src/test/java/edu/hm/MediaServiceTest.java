@@ -15,6 +15,9 @@ import edu.hm.management.bib.MediaServiceResult;
 import edu.hm.management.media.Book;
 import edu.hm.management.media.Disc;
 import edu.hm.management.media.Medium;
+import edu.hm.management.user.AuthenticationResource;
+import edu.hm.management.user.IAuthentication;
+import edu.hm.management.user.AuthenticationImpl;
 
 /**
  * Test Class for Media Service.
@@ -27,7 +30,10 @@ public class MediaServiceTest {
      * Media Interface.
      */
     private IMediaService service = new MediaServiceImpl();
+    private IAuthentication newToken = new AuthenticationImpl();
+    
     private MediaResource resource = new MediaResource();
+    private AuthenticationResource tokenResource = new AuthenticationResource();
     
     private Book bk1 = new Book("Richard Castle", "978-3864250101", "Frozen Heat");
     private Book bk2 = new Book("Rick Castle", "978-3864252969", "Deadly Heat");
@@ -41,9 +47,12 @@ public class MediaServiceTest {
      */
     @Before
     public void setUp() throws Exception {
+        newToken = new AuthenticationImpl();
+        tokenResource = new AuthenticationResource(newToken);
+        
         service.clearLibary();
         service = new MediaServiceImpl();
-        resource = new MediaResource(service);
+        resource = new MediaResource(service, newToken);
     }
     
     /**
